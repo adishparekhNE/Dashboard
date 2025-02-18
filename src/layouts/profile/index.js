@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
@@ -96,7 +81,11 @@ function Overview() {
               <Divider orientation="vertical" sx={{ mx: 0 }} />
             </Grid>
             <Grid item xs={12} xl={4}>
-              <ProfilesList title="conversations" profiles={profilesListData} shadow={false} />
+              <ProfilesList
+                title="conversations"
+                profiles={profilesListData}
+                shadow={false}
+              />
             </Grid>
           </Grid>
         </MDBox>
@@ -124,12 +113,12 @@ function Overview() {
                   color: "info",
                   label: "view project",
                 }}
-                authors={[
-                  { image: team1, name: "Elena Morison" },
-                  { image: team2, name: "Ryan Milly" },
-                  { image: team3, name: "Nick Daniel" },
-                  { image: team4, name: "Peterson" },
-                ]}
+                // authors={[
+                //   { image: team1, name: "Elena Morison" },
+                //   { image: team2, name: "Ryan Milly" },
+                //   { image: team3, name: "Nick Daniel" },
+                //   { image: team4, name: "Peterson" },
+                // ]}
               />
             </Grid>
             <Grid item xs={12} md={6} xl={3}>

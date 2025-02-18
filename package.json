@@ -1,18 +1,12 @@
 {
-  "name": "material-dashboard-2-react",
+  "name": "Dooit-Dashboard",
   "version": "2.2.0",
   "private": true,
-  "author": "Creative Tim",
-  "license": "See license in https://www.creative-tim.com/license",
-  "description": "React version of Material Dashboard 2 by Creative Tim",
-  "bugs": {
-    "url": "https://github.com/creativetimofficial/material-dashboard-react/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/creativetimofficial/material-dashboard-react.git"
-  },
+  "author": "Adish Parekh",
+  "license": "N/A",
+  "description": "React version of Material Dashboard 2",
   "dependencies": {
+    "@auth0/auth0-react": "^2.3.0",
     "@emotion/cache": "11.10.8",
     "@emotion/react": "11.10.8",
     "@emotion/styled": "11.10.8",
@@ -20,6 +14,7 @@
     "@mui/material": "5.12.3",
     "chart.js": "4.3.0",
     "chroma-js": "2.4.2",
+    "env-cmd": "^10.1.0",
     "prop-types": "15.8.1",
     "react": "18.2.0",
     "react-chartjs-2": "5.2.0",
