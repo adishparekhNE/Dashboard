@@ -4,7 +4,7 @@ import os
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1234@localhost:3306/Dooit'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1234@localhost:3306/dooit'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 
@@ -23,6 +23,8 @@ class UserProfile(db.Model):
     address = db.Column(db.String(255))
     skills = db.Column(db.Text)  # Stores user skills as a comma-separated string
     personality_traits = db.Column(db.Text)  # Stores personality traits as a comma-separated string
+    transition_role = db.Column(db.String(100))  # Stores the transition role for career change
+
 
 # Career plan model storing career paths and recommended courses
 class CareerPlan(db.Model):
@@ -31,6 +33,26 @@ class CareerPlan(db.Model):
     career_path = db.Column(db.Text)  # The user's planned career path
     action_plan = db.Column(db.Text)  # Steps for achieving career goals
     recommended_courses = db.Column(db.Text)  # Recommended courses as a comma-separated string
+    plan_status = db.Column(db.String(100))  # Status of the career plan
+
+# API to retrieve user overview data
+@app.route('/overview/<int:user_id>', methods=['GET'])
+def get_overview(user_id):
+    """Fetches the overview details for the website."""
+    user = UserProfile.query.get(user_id)
+    career_plan = CareerPlan.query.filter_by(user_id=user_id).first()
+    
+    if not user or not career_plan:
+        return jsonify({'error': 'User or career plan not found'}), 404
+    
+    return jsonify({
+        'recommended_video': career_plan.recommended_courses,
+        'event_plan': career_plan.action_plan,
+        'current_role': user.job_title,
+        'transition_role': user.transition_role,
+        'goal_role': career_plan.career_path,
+        'plan_status': career_plan.plan_status
+    })
 
 # API to retrieve user profile data
 @app.route('/user/<int:user_id>', methods=['GET'])
