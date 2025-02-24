@@ -94,7 +94,7 @@ function Header({ children }) {
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
               <MDTypography variant="h5" fontWeight="medium">
-                Adish Parekh
+                {user.given_name}
               </MDTypography>
               <MDTypography variant="button" color="text" fontWeight="regular">
                 Front-End Developer / Project Manager
