@@ -8,14 +8,9 @@ import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 import MDTypography from "components/MDTypography";
-
-// Data
-import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
-import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
+import { useEffect } from "react";
 
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
@@ -23,8 +18,7 @@ import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function Dashboard() {
-  const { user, logout, isLoading } = useAuth0();
-  const { sales, tasks } = reportsLineChartData;
+  const { user } = useAuth0();
 
   const timestamp = Date.now(); // Get timestamp in milliseconds
   const date = new Date(timestamp); // Create a Date object
@@ -34,9 +28,14 @@ function Dashboard() {
     month: "long",
     day: "numeric",
   };
+  useEffect(() => {
+    document.querySelector(".MuiPaper-root").style.visibility = "visible";
+  }, []);
 
   const formattedDate = date.toLocaleDateString("en-US", options);
   console.log(formattedDate);
+
+  const transitionRole = window.sessionStorage.getItem("Transition Role");
 
   return (
     <DashboardLayout>
@@ -49,13 +48,13 @@ function Dashboard() {
       </MDTypography>
       <MDBox py={3}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="primary"
                 icon="weekend"
                 title="Transition Role"
-                count="UX Designer"
+                count={transitionRole}
               />
             </MDBox>
           </Grid>

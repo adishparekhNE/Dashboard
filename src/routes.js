@@ -23,15 +23,13 @@
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
-import Billing from "layouts/billing";
-// import RTL from "layouts/rtl";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
+import SpaceDashboardOutlinedIcon from "@mui/icons-material/SpaceDashboardOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import SimCardOutlinedIcon from "@mui/icons-material/SimCardOutlined";
 // import SignIn from "layouts/authentication/sign-in";
 // import SignUp from "layouts/authentication/sign-up";
-
-// @mui icons
-import Icon from "@mui/material/Icon";
 
 const routes = [
   {
@@ -44,18 +42,10 @@ const routes = [
     type: "collapse",
     name: "Overview",
     key: "overview",
-    icon: <Icon fontSize="small">dashboard</Icon>,
+    icon: <SpaceDashboardOutlinedIcon fontSize="small" />,
     route: "/overview",
     component: <Dashboard />,
   },
-  // {
-  //   type: "collapse",
-  //   name: "Tables",
-  //   key: "tables",
-  //   icon: <Icon fontSize="small">table_view</Icon>,
-  //   route: "/tables",
-  //   component: <Tables />,
-  // },
   // {
   //   type: "collapse",
   //   name: "Billing",
@@ -72,21 +62,28 @@ const routes = [
   //   route: "/rtl",
   //   component: <RTL />,
   // },
-  // {
-  //   type: "collapse",
-  //   name: "Notifications",
-  //   key: "notifications",
-  //   icon: <Icon fontSize="small">notifications</Icon>,
-  //   route: "/notifications",
-  //   component: <Notifications />,
-  // },
   {
     type: "collapse",
     name: "Profile",
     key: "profile",
-    icon: <Icon fontSize="small">person</Icon>,
+    icon: <AccountCircleOutlinedIcon fontSize="small" />,
     route: "/profile",
     component: <Profile />,
+  },
+  {
+    type: "collapse",
+    name: "Customized Career Plan",
+    key: "notifications",
+    icon: <SimCardOutlinedIcon fontSize="small" />,
+    route: "/career-plan",
+    component: <Notifications />,
+  },
+  {
+    type: "title",
+    name: "Tables",
+    key: "tables",
+    route: "/select-profession",
+    component: <Tables />,
   },
   // {
   //   type: "collapse",

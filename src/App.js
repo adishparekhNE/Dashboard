@@ -39,8 +39,8 @@ import {
 } from "context";
 
 // Images
-import brandWhite from "assets/images/logo-ct.png";
-import brandDark from "assets/images/logo-ct-dark.png";
+import brandWhite from "assets/images/Logo.svg";
+import brandDark from "assets/images/Logo.svg";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -154,12 +154,8 @@ export default function App() {
         <>
           <Sidenav
             color={sidenavColor}
-            brand={
-              (transparentSidenav && !darkMode) || whiteSidenav
-                ? brandDark
-                : brandWhite
-            }
-            brandName="Dooit"
+            brand={brandDark}
+            // brandName="Dooit"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
@@ -172,7 +168,7 @@ export default function App() {
       {isAuthenticated && (
         <Routes>
           {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/overview" />} />
+          <Route path="*" element={<Navigate to="/select-profession" />} />
         </Routes>
       )}
     </ThemeProvider>
