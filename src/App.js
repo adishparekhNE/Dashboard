@@ -17,16 +17,9 @@ import Configurator from "examples/Configurator";
 
 // Material Dashboard 2 React themes
 import theme from "assets/theme";
-import themeRTL from "assets/theme/theme-rtl";
 
 // Material Dashboard 2 React Dark Mode themes
 import themeDark from "assets/theme-dark";
-import themeDarkRTL from "assets/theme-dark/theme-rtl";
-
-// RTL plugins
-import rtlPlugin from "stylis-plugin-rtl";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
 
 // Material Dashboard 2 React routes
 import routes from "routes";
@@ -39,14 +32,12 @@ import {
 } from "context";
 
 // Images
-import brandWhite from "assets/images/Logo.svg";
 import brandDark from "assets/images/Logo.svg";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function App() {
-  const { user, loginWithRedirect, isAuthenticated, logout, isLoading } =
-    useAuth0();
+  const { user, loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
 
   const [controller, dispatch] = useMaterialUIController();
   const {
@@ -55,8 +46,6 @@ export default function App() {
     layout,
     openConfigurator,
     sidenavColor,
-    transparentSidenav,
-    whiteSidenav,
     darkMode,
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);

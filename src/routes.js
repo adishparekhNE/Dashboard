@@ -22,14 +22,12 @@
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
-import Notifications from "layouts/notifications";
+import SelectProfession from "layouts/selectProfession";
+import CareerPlan from "layouts/careerPlan";
 import Profile from "layouts/profile";
 import SpaceDashboardOutlinedIcon from "@mui/icons-material/SpaceDashboardOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SimCardOutlinedIcon from "@mui/icons-material/SimCardOutlined";
-// import SignIn from "layouts/authentication/sign-in";
-// import SignUp from "layouts/authentication/sign-up";
 
 const routes = [
   {
@@ -73,17 +71,17 @@ const routes = [
   {
     type: "collapse",
     name: "Customized Career Plan",
-    key: "notifications",
+    key: "careerPlan",
     icon: <SimCardOutlinedIcon fontSize="small" />,
     route: "/career-plan",
-    component: <Notifications />,
+    component: <CareerPlan />,
   },
   {
     type: "title",
-    name: "Tables",
-    key: "tables",
+    name: "Select Profession",
+    key: "selectProfession",
     route: "/select-profession",
-    component: <Tables />,
+    component: <SelectProfession />,
   },
   // {
   //   type: "collapse",

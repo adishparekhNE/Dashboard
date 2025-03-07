@@ -16,7 +16,6 @@ import MDAvatar from "components/MDAvatar";
 import breakpoints from "assets/theme/base/breakpoints";
 
 // Images
-import backgroundImage from "assets/images/bg-profile.jpeg";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function Header({ children }) {
@@ -42,6 +41,8 @@ function Header({ children }) {
     // Remove event listener on cleanup
     return () => window.removeEventListener("resize", handleTabsOrientation);
   }, [tabsOrientation]);
+
+  console.log("user:::", user);
 
   return (
     <MDBox position="relative" mb={5}>

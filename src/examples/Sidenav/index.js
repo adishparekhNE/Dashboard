@@ -174,21 +174,18 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           alignItems="center"
         >
           {brand && (
-            <MDBox component="img" src={brand} alt="Brand" width="2rem" />
+            <MDBox
+              component="img"
+              src={brand}
+              alt="Brand"
+              width="8rem"
+              textAlign="center"
+            />
           )}
           <MDBox
             width={!brandName && "100%"}
             sx={(theme) => sidenavLogoLabel(theme, { miniSidenav })}
-          >
-            <MDTypography
-              component="h6"
-              variant="button"
-              fontWeight="medium"
-              color={textColor}
-            >
-              {brandName}
-            </MDTypography>
-          </MDBox>
+          ></MDBox>
         </MDBox>
       </MDBox>
       <Divider
@@ -233,7 +230,7 @@ Sidenav.propTypes = {
     "dark",
   ]),
   brand: PropTypes.string,
-  brandName: PropTypes.string.isRequired,
+  // brandName: PropTypes.string.isRequired,
   routes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -6,7 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Material Dashboard 2 React components
@@ -17,9 +18,13 @@ import MDTypography from "components/MDTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
-function Tables() {
+function selectProfession() {
+  const { user } = useAuth0();
   const navigate = useNavigate();
+  const API_BASE_URL = "http://localhost:4000";
 
   const handleChange = (event) => {
     console.log(event.target.value);
@@ -38,13 +43,36 @@ function Tables() {
     padding: "10px",
   };
 
-  const label = {
-    padding: "10px",
-  };
+  const [overviewData, setOverviewData] = useState(null);
 
   useEffect(() => {
+    // Note: This line may be for hiding a specific element; keep it if intentional
     document.querySelector(".MuiPaper-root").style.visibility = "hidden";
-  }, []);
+
+    const fetchOverview = async () => {
+      try {
+        const response = await axios.post(`${API_BASE_URL}/overview`, {
+          email: user.email,
+        });
+        console.log("RESPONSE:::", response.data);
+        setOverviewData(response.data);
+      } catch (error) {
+        console.error("Error fetching overview data:", error);
+      }
+    };
+
+    fetchOverview();
+  }, [user.email]);
+
+  console.log("USER::;", user);
+
+  // Define menu options as an array of strings
+  const menuOptions = [
+    "Software Engineer",
+    "Project Manager",
+    "UX Designer",
+    "Senior Software Engineer",
+  ];
 
   return (
     <DashboardLayout>
@@ -69,9 +97,7 @@ function Tables() {
               </MDBox>
               <MDBox pt={3}>
                 <FormControl fullWidth style={styles}>
-                  <InputLabel id="demo-simple-select-label" styel={label}>
-                    Role
-                  </InputLabel>
+                  <InputLabel id="demo-simple-select-label">Role</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="simple-select"
@@ -80,16 +106,15 @@ function Tables() {
                     onChange={handleChange}
                     style={input}
                   >
-                    <MenuItem value={"Software Engineer"}>
-                      Software Engineer
-                    </MenuItem>
-                    <MenuItem value={"Project Manager"}>
-                      Project Manager
-                    </MenuItem>
-                    <MenuItem value={"UX Designer"}>UX Designer</MenuItem>
-                    <MenuItem value={"Senior Software Engineer"}>
-                      Senior Software Engineer
-                    </MenuItem>
+                    {menuOptions.map((option) => (
+                      <MenuItem
+                        value={option}
+                        key={option}
+                        disabled={overviewData?.current_job === option}
+                      >
+                        {option}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </MDBox>
@@ -102,4 +127,4 @@ function Tables() {
   );
 }
 
-export default Tables;
+export default selectProfession;
