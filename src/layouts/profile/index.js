@@ -28,7 +28,7 @@ function Overview() {
   useEffect(() => {
     document.querySelector(".MuiPaper-root").style.visibility = "visible";
 
-    const fetchOverview = async () => {
+    const fetchProfileData = async () => {
       try {
         const response = await axios.post(
           `${process.env.REACT_APP_API_BASE_URL}/profile`,
@@ -36,14 +36,13 @@ function Overview() {
             email: user.email,
           }
         );
-        console.log("PROFILE:::", response.data);
         setProfileData(response.data);
       } catch (error) {
         console.error("Error fetching overview data:", error);
       }
     };
 
-    fetchOverview();
+    fetchProfileData();
   }, [user.email]);
 
   return (

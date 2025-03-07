@@ -24,10 +24,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 function selectProfession() {
   const { user } = useAuth0();
   const navigate = useNavigate();
-  const API_BASE_URL = "http://localhost:4000";
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     if (event.target.value) {
       window.sessionStorage.setItem("Transition Role", event.target.value);
       navigate("/overview");
@@ -51,10 +49,12 @@ function selectProfession() {
 
     const fetchOverview = async () => {
       try {
-        const response = await axios.post(`${API_BASE_URL}/overview`, {
-          email: user.email,
-        });
-        console.log("RESPONSE:::", response.data);
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_BASE_URL}/overview`,
+          {
+            email: user.email,
+          }
+        );
         setOverviewData(response.data);
       } catch (error) {
         console.error("Error fetching overview data:", error);
@@ -63,8 +63,6 @@ function selectProfession() {
 
     fetchOverview();
   }, [user.email]);
-
-  console.log("USER::;", user);
 
   // Define menu options as an array of strings
   const menuOptions = [

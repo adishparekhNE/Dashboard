@@ -25,9 +25,8 @@ import axios from "axios";
 function Dashboard() {
   const { user } = useAuth0();
 
-  const timestamp = Date.now(); // Get timestamp in milliseconds
-  const date = new Date(timestamp); // Create a Date object
-  const API_BASE_URL = "http://localhost:4000";
+  const timestamp = Date.now();
+  const date = new Date(timestamp);
 
   const options = {
     weekday: "long",
@@ -84,10 +83,12 @@ function Dashboard() {
 
     const fetchOverview = async () => {
       try {
-        const response = await axios.post(`${API_BASE_URL}/overview`, {
-          email: user.email,
-        });
-        console.log("RESPONSE:::", response.data);
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_BASE_URL}/overview`,
+          {
+            email: user.email,
+          }
+        );
         setOverviewData(response.data);
         sessionStorage.setItem("current_job", response.data.current_job);
       } catch (error) {
