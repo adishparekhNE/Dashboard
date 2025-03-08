@@ -42,8 +42,6 @@ function Header({ children }) {
     return () => window.removeEventListener("resize", handleTabsOrientation);
   }, [tabsOrientation]);
 
-  console.log("user:::", user);
-
   return (
     <MDBox position="relative" mb={5}>
       <MDBox minHeight="5.75rem" borderRadius="xl" />
@@ -71,7 +69,7 @@ function Header({ children }) {
                 {user.name}
               </MDTypography>
               <MDTypography variant="button" color="text" fontWeight="regular">
-                Front-End Developer / Project Manager
+                {sessionStorage.getItem("current_job")}
               </MDTypography>
             </MDBox>
           </Grid>

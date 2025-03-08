@@ -53,6 +53,7 @@ function selectProfession() {
           `${process.env.REACT_APP_API_BASE_URL}/overview`,
           {
             email: user.email,
+            transition_role: sessionStorage.getItem("Transition Role"),
           }
         );
         setOverviewData(response.data);

@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect } from "react";
 
 // react-router components
@@ -27,6 +12,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import Icon from "@mui/material/Icon";
+import MDAvatar from "components/MDAvatar";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -52,6 +38,7 @@ import {
   setMiniSidenav,
   setOpenConfigurator,
 } from "context";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
@@ -65,6 +52,8 @@ function DashboardNavbar({ absolute, light, isMini }) {
   } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
+
+  const { user } = useAuth0();
 
   useEffect(() => {
     // Setting the navbar type
@@ -170,9 +159,12 @@ function DashboardNavbar({ absolute, light, isMini }) {
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
               <Link to="/profile">
-                <IconButton sx={navbarIconButton} size="medium" disableRipple>
-                  <Icon sx={iconsStyle}>account_circle</Icon>
-                </IconButton>
+                <MDAvatar
+                  src={user.picture}
+                  alt="profile-image"
+                  size="xl"
+                  shadow="sm"
+                />
               </Link>
             </MDBox>
           </MDBox>

@@ -10,6 +10,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import SimCardOutlinedIcon from "@mui/icons-material/SimCardOutlined";
 import { styled } from "@mui/material/styles";
 import { blue } from "@mui/material/colors";
+import { Link } from "react-router-dom";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(blue[100]),
@@ -27,26 +28,42 @@ function Resources() {
           Resources
         </MDTypography>
         <Divider />
-        <ColorButton
-          variant="contained"
-          fullWidth
-          size="large"
-          justifyContent="left"
-          sx={{ justifyContent: "left" }}
-          startIcon={<AccountCircleOutlinedIcon sx={{ mr: 1 }} />}
-        >
-          Profile
-        </ColorButton>
+        <Link to="/profile">
+          <ColorButton
+            variant="contained"
+            fullWidth
+            size="large"
+            justifyContent="left"
+            sx={{ justifyContent: "left" }}
+            startIcon={<AccountCircleOutlinedIcon sx={{ mr: 1 }} />}
+          >
+            Profile
+          </ColorButton>
+        </Link>
         &nbsp;
-        <ColorButton
-          variant="contained"
-          fullWidth
-          size="large"
-          sx={{ justifyContent: "left" }}
-          startIcon={<SimCardOutlinedIcon sx={{ mr: 1 }} />}
-        >
-          Customized Career Plan
-        </ColorButton>
+        <Link to="/career-plan">
+          <ColorButton
+            variant="contained"
+            fullWidth
+            size="large"
+            sx={{ justifyContent: "left" }}
+            startIcon={<SimCardOutlinedIcon sx={{ mr: 1 }} />}
+          >
+            Customized Career Plan
+          </ColorButton>
+        </Link>
+        &nbsp;
+        <Link to="/select-profession">
+          <ColorButton
+            variant="contained"
+            fullWidth
+            size="large"
+            sx={{ justifyContent: "left" }}
+            startIcon={<SimCardOutlinedIcon sx={{ mr: 1 }} />}
+          >
+            Change your Career Goal
+          </ColorButton>
+        </Link>
       </MDBox>
     </Card>
   );

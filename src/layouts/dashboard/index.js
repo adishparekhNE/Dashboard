@@ -42,7 +42,7 @@ function Dashboard() {
     { title: "Week 4" },
   ];
 
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep] = useState(0);
 
   function Milestone1() {
     return <h2>Week 1</h2>;
@@ -87,6 +87,7 @@ function Dashboard() {
           `${process.env.REACT_APP_API_BASE_URL}/overview`,
           {
             email: user.email,
+            transition_role: sessionStorage.getItem("Transition Role"),
           }
         );
         setOverviewData(response.data);
@@ -139,7 +140,7 @@ function Dashboard() {
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="success"
-                icon="store"
+                icon="checklist_rtl_icon"
                 title="Plan Status"
                 count="Week 1"
               />
