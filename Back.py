@@ -1,7 +1,10 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1234@localhost:3306/dooit'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -17,16 +20,16 @@ class UserProfile(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     phone = db.Column(db.String(20))
     address = db.Column(db.String(255))
-    skills = db.Column(db.Text)  # Stores user skills as a comma-separated string
-    personality_traits = db.Column(db.Text)  # Stores personality traits as a comma-separated string
+    skills = db.Column(db.Text)
+    personality_traits = db.Column(db.Text)
     transition_job = db.Column(db.String(100))
     career_path = db.Column(db.Text)
-    missing_skills = db.Column(db.Text)  # Comma-separated missing skills
+    missing_skills = db.Column(db.Text)
 
 # Career Path model
 class CareerPath(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    career = db.Column(db.String(100))
+    start_career = db.Column(db.String(100))
     career_path = db.Column(db.Text)
 
 # Job Skills model
@@ -47,19 +50,22 @@ class LearningCourses(db.Model):
 def get_overview():
     data = request.json
     email = data.get('email')
+    transition_role = data.get('transition_role')
     user = UserProfile.query.filter_by(email=email).first()
 
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
-    missing_skills = user.missing_skills.split(',')[:2] if user.missing_skills else []
+    current_job = user.current_job
+    job_skills = JobSkills.query.filter_by(job=transition_role).first()
+    skills = job_skills.skills.split(',') if job_skills else []
     courses = [
-        course.url for skill in missing_skills
-        for course in LearningCourses.query.filter_by(skill=skill).all()
+        course.url for skill in skills
+        for course in LearningCourses.query.filter_by(skill=skill.strip()).all()
     ][:2]
 
     return jsonify({
-        'current_job': user.current_job,
+        'current_job': current_job,
         'recommended_videos': courses
     })
 
@@ -88,21 +94,25 @@ def get_profile():
 def get_career():
     data = request.json
     email = data.get('email')
+    transition_role = data.get('transition_role')
     user = UserProfile.query.filter_by(email=email).first()
 
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
-    missing_skills = user.missing_skills.split(',')[:4] if user.missing_skills else []
+    job_skills = JobSkills.query.filter_by(job=transition_role).first()
+    skills = job_skills.skills.split(',') if job_skills else []
     courses = [
-        course.url for skill in missing_skills
-        for course in LearningCourses.query.filter_by(skill=skill).all()
+        course.url for skill in skills
+        for course in LearningCourses.query.filter_by(skill=skill.strip()).all()
     ][:4]
 
+    career_path = CareerPath.query.filter_by(start_career=transition_role).first()
+
     return jsonify({
-        'career_path': user.career_path,
-        'recommended_videos':  courses
+        'career_path': career_path.career_path if career_path else 'No career path found',
+        'recommended_videos': courses
     })
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host='0.0.0.0',port=4000)
